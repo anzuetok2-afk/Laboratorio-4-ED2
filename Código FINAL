@@ -211,30 +211,16 @@ int main(void)
 	          {
 	              if (modo == 0)
 	              {
-	                  /* Cambia al modo RGB */
 	                  modo = 1;
-
-	                  /* Apagar los LEDs del contador */
 	                  apagarContador();
-
-	                  /* Muestra el último color guardado */
 	                  mostrarRGB();
-
-	                  /* Enciende el indicador */
 	                  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, 1);
 	              }
 	              else
 	              {
-	                  /* Cambia al modo contador */
 	                  modo = 0;
-
-	                  /* Apaga el RGB */
 	                  apagarRGB();
-
-	                  /* Muestra el último valor guardado */
 	                  mostrarContador();
-
-	                  /* Apaga el indicador */
 	                  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, 0);
 	              }
 
@@ -335,12 +321,10 @@ int main(void)
 	                  {
 	                      contadorRGB = contadorRGB - 1;
 	                  }
-
 	                  mostrarRGB();
 	                  while (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6) == 1)
 	                  {
 	                  }
-
 	                  HAL_Delay(100);
 	              }
 	          }
