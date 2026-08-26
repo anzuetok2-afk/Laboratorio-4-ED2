@@ -1,0 +1,76 @@
+  if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_5) == 1)
+	      {
+	          HAL_Delay(100);  // Antirrebote
+
+	          /* Confirmar que el botón continúa presionado */
+	          if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_5) == 1)
+	          {
+	              contador = contador + 1;
+
+	              /* Después del LED 4 vuelve a todos apagados */
+	              if (contador > 4)
+	              {
+	                  contador = 0;
+	              }
+
+	              /* Esperar hasta que se suelte el botón */
+	              while (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_5) == 1)
+	              {
+	              }
+
+	              HAL_Delay(100);  // Antirrebote al soltar
+	          }
+	      }
+
+	      /* BOTÓN 2: retroceder */
+	      if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6) == 1)
+	      {
+	          HAL_Delay(20);  // Antirrebote
+
+	          /* Confirmar que el botón continúa presionado */
+	          if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6) == 1)
+	          {
+	              if (contador == 0)
+	              {
+	                  contador = 4;
+	              }
+	              else
+	              {
+	                  contador = contador - 1;
+	              }
+
+	              /* Esperar hasta que se suelte el botón */
+	              while (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6) == 1)
+	              {
+	              }
+
+	              HAL_Delay(50);  // Antirrebote al soltar
+	          }
+	      }
+
+	      /* Apagar los cuatro LEDs */
+	      HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, 0);  // LED 1
+	      HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, 0);  // LED 2
+	      HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, 0);  // LED 3
+	      HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 0);  // LED 4
+
+	      /* Encender solamente el LED correspondiente */
+	      if (contador == 1)
+	      {
+	          HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, 1);
+	      }
+	      else if (contador == 2)
+	      {
+	          HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, 1);
+	      }
+	      else if (contador == 3)
+	      {
+	          HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, 1);
+	      }
+	      else if (contador == 4)
+	      {
+	          HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 1);
+	      }
+}
+  }
+  /* USER CODE END 3 */
